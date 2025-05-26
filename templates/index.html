@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text</title>
+</head>
+<body>
+    <h1>Speech to Text Converter</h1>
+    <button id="start-button">Start Recording</button>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('start-button').onclick = function() {
+            fetch('/recognize', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.text) {
+                        document.getElementById('result').innerText = data.text;
+                    } else {
+                        document.getElementById('result').innerText = data.error;
+                    }
+                });
+        };
+    </script>
+</body>
+</html>
